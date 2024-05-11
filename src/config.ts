@@ -1,6 +1,10 @@
 import { sync as pkgDir } from 'pkg-dir';
 import path from 'path';
+import Joi from 'joi';
 import fs from 'fs';
+
+// * schema
+const configSchema = Joi.object({});
 
 // * types
 type SpriteConfig = {};

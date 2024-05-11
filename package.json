@@ -19,6 +19,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "joi": "^17.13.1",
     "pkg-dir": "^5.0.0"
   }
 }
