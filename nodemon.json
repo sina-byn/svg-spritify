@@ -1,0 +1,5 @@
+{
+  "ext": "ts,json",
+  "watch": ["index.ts", "src/**"],
+  "exec": "ts-node index.ts --transpileOnly"
+}
