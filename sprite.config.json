@@ -1,8 +1,3 @@
 {
-  "media": "min",
-  "themes": ["light", "dark"],
-  "breakpoints": {
-    "md": 768,
-    "lg": 1024
-  }
+  "media": "min"
 }
