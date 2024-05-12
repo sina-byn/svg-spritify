@@ -1,4 +1,5 @@
 import { resolvePaths, resolveConfig } from './src/config';
+import logger from './src/logger';
 
 // * utils
 import { pathsExist } from './src/utils';
@@ -11,10 +12,12 @@ const init = () => {
 
   if (!ok) {
     throw new Error(
-      [
-        'input svg files do not match the configuration',
-        nonExistentPaths.map(path => path + " - doesn't exist").join('\r\n'),
-      ].join('\r\n')
+      logger.error(
+        [
+          "input svg files don't match the configuration",
+          logger.warn(nonExistentPaths.map(path => path + " - doesn't exist").join('\r\n')),
+        ].join('\r\n')
+      )
     );
   }
 };
