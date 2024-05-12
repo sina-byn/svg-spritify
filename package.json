@@ -21,6 +21,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "joi": "^17.13.1",
-    "pkg-dir": "^5.0.0"
+    "pkg-dir": "^5.0.0",
+    "svg-mixer": "^2.3.14"
   }
 }
