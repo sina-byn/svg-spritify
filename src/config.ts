@@ -4,6 +4,7 @@ import fs from 'fs';
 
 // * data
 const defaultConfig: Partial<SpriteConfig> = {
+  filename: 'sprite',
   media: 'min',
   themes: ['light'],
   breakpoints: {},
@@ -11,6 +12,7 @@ const defaultConfig: Partial<SpriteConfig> = {
 
 // * schemas
 const configSchema = Joi.object({
+  filename: Joi.string().min(1),
   className: Joi.string(),
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
@@ -19,6 +21,7 @@ const configSchema = Joi.object({
 
 // * types
 type SpriteConfig = {
+  filename: string;
   className: string;
   media: 'min' | 'max';
   themes: string[];
@@ -26,7 +29,7 @@ type SpriteConfig = {
 };
 
 export const resolvePaths = (config: SpriteConfig) => {
-  const { themes, breakpoints } = config;
+  const { filename, themes, breakpoints } = config;
 
   const breakpointNames = ['DEFAULT', ...Object.keys(breakpoints)];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 1;
@@ -42,7 +45,7 @@ export const resolvePaths = (config: SpriteConfig) => {
 
         return breakpointNames.map(bp => {
           bp = bp === 'DEFAULT' ? '' : `-${bp}`;
-          return 'sprite' + theme + bp + '.svg';
+          return filename + theme + bp + '.svg';
         });
       }),
     };
@@ -51,18 +54,18 @@ export const resolvePaths = (config: SpriteConfig) => {
   if (multiTheme) {
     return {
       inputs: themes.map(theme => path.join('icons', theme)),
-      outputs: themes.map(theme => 'sprite' + (theme === 'light' ? '' : `-${theme}`) + '.svg'),
+      outputs: themes.map(theme => filename + (theme === 'light' ? '' : `-${theme}`) + '.svg'),
     };
   }
 
   if (multiBreakpoint) {
     return {
       inputs: breakpointNames.map(bp => path.join('icons', bp)),
-      outputs: breakpointNames.map(bp => 'sprite' + (bp === 'DEFAULT' ? '' : `-${bp}`) + '.svg'),
+      outputs: breakpointNames.map(bp => filename + (bp === 'DEFAULT' ? '' : `-${bp}`) + '.svg'),
     };
   }
 
-  return { inputs: ['icons'], outputs: ['sprite.svg'] };
+  return { inputs: ['icons'], outputs: [`${filename}.svg`] };
 };
 
 export const resolveConfig = () => {
