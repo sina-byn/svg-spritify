@@ -5,6 +5,7 @@ import fs from 'fs';
 // * data
 const defaultConfig: Partial<SpriteConfig> = {
   filename: 'sprite',
+  className: 'sprite',
   media: 'min',
   themes: ['light'],
   breakpoints: {},
@@ -13,7 +14,7 @@ const defaultConfig: Partial<SpriteConfig> = {
 // * schemas
 const configSchema = Joi.object({
   filename: Joi.string().min(1),
-  className: Joi.string(),
+  className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string(), Joi.number().required()),
