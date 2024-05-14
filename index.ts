@@ -6,7 +6,7 @@ import { resolvePaths, resolveConfig } from './src/config';
 import logger from './src/logger';
 
 // * utils
-import { pathsExist } from './src/utils';
+import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/utils';
 
 const init = async () => {
   const config = resolveConfig();
@@ -29,14 +29,20 @@ const init = async () => {
     const input = inputs[i];
     const output = outputs[i];
 
-    const sprite = await mixer(path.join(input, '*.svg'), {
+    const { content: sprite } = await mixer(path.join(input, '*.svg'), {
       // @ts-ignore
       spriteConfig: { usageClassName: config.className, styles: '' },
       spriteType: 'stack',
       prettify: true,
     });
 
-    fs.writeFileSync(output, sprite.content, 'utf-8');
+    const dimensions = extractAttr<Dimensions>('viewBox', sprite, parseViewBox);
+    const ids = extractAttr<string>('id', sprite);
+
+    console.log(dimensions);
+    console.log(ids);
+
+    fs.writeFileSync(output, sprite, 'utf-8');
   }
 };
 
