@@ -14,6 +14,7 @@ const defaultConfig: Partial<SpriteConfig> = {
   media: 'min',
   themes: ['light'],
   breakpoints: {},
+  demo: false,
   css: {
     minify: false,
     filename: 'sprite',
@@ -29,6 +30,10 @@ const configSchema = Joi.object({
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string(), Joi.number().required()),
+  demo: Joi.alternatives(
+    Joi.boolean(),
+    Joi.object().pattern(Joi.string(), Joi.string().hex().max(6))
+  ),
   css: Joi.object({
     minify: Joi.boolean(),
     filename: Joi.string().min(1),
@@ -37,11 +42,13 @@ const configSchema = Joi.object({
 
 // * types
 type CSSConfig = {
-  minify?: boolean
+  minify?: boolean;
   filename?: string;
 };
 
-type SpriteConfig = {
+type DemoConfig = boolean | Record<string, string>;
+
+export type SpriteConfig = {
   css: CSSConfig;
   outDir: string;
   rootDir: string;
@@ -50,6 +57,7 @@ type SpriteConfig = {
   media: 'min' | 'max';
   themes: string[];
   breakpoints: Record<string, number>;
+  demo: DemoConfig;
 };
 
 export const resolvePaths = (config: SpriteConfig) => {

@@ -9,11 +9,14 @@ import logger from './src/logger';
 
 // * utils
 import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/utils';
+import generateDemo from './src/demo';
 
 const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
+  const uniqueIds = new Set<string>();
+
   let css = generatePreflight(config.className);
 
   if (!ok) {
@@ -40,6 +43,8 @@ const init = async () => {
 
     const dimensions = extractAttr<Dimensions>('viewBox', sprite, parseViewBox);
     const ids = extractAttr<string>('id', sprite);
+
+    if (config.demo) ids.forEach(id => uniqueIds.add(id));
 
     console.log(dimensions);
     console.log(ids);
@@ -72,6 +77,8 @@ const init = async () => {
     config.css.minify ? css : cssBeautify(css, { indent: '  ' }),
     'utf-8'
   );
+
+  if (config.demo) generateDemo([...uniqueIds], config);
 };
 
 init();
