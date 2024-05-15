@@ -2,8 +2,8 @@ import mixer from 'svg-mixer';
 import path from 'path';
 import fs from 'fs';
 
-import { resolvePaths, resolveConfig } from './src/config';
 import { generatePreflight, generateMediaQuery } from './src/css';
+import { resolvePaths, resolveConfig } from './src/config';
 import logger from './src/logger';
 
 // * utils
@@ -13,6 +13,10 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   let css = generatePreflight(config.className);
+
+  outputs.forEach((output, index) => (outputs[index] = path.join(config.outDir, output)));
+
+  console.log(outputs);
 
   const { ok, nonExistentPaths } = pathsExist(...inputs);
 
@@ -69,7 +73,7 @@ const init = async () => {
 
   console.log(css);
 
-  fs.writeFileSync('icons.css', css, 'utf-8');
+  fs.writeFileSync(path.join(config.outDir, 'icons.css'), css, 'utf-8');
 };
 
 init();

@@ -1,10 +1,12 @@
 import path from 'path';
 import Joi from 'joi';
 import fs from 'fs';
+
 import { sortBreakpoints } from './css';
 
 // * data
 const defaultConfig: Partial<SpriteConfig> = {
+  outDir: '.output',
   filename: 'sprite',
   className: 'sprite',
   media: 'min',
@@ -14,6 +16,7 @@ const defaultConfig: Partial<SpriteConfig> = {
 
 // * schemas
 const configSchema = Joi.object({
+  outDir: Joi.string().min(1),
   filename: Joi.string().min(1),
   className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
@@ -23,6 +26,7 @@ const configSchema = Joi.object({
 
 // * types
 type SpriteConfig = {
+  outDir: string;
   filename: string;
   className: string;
   media: 'min' | 'max';
@@ -85,6 +89,8 @@ export const resolveConfig = () => {
   config = { ...defaultConfig, ...config };
 
   console.log(config);
+
+  if (!fs.existsSync(config.outDir)) fs.mkdirSync(config.outDir, { recursive: true });
 
   return config;
 };
