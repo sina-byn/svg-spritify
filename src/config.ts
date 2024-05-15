@@ -14,6 +14,10 @@ const defaultConfig: Partial<SpriteConfig> = {
   media: 'min',
   themes: ['light'],
   breakpoints: {},
+  css: {
+    minify: false,
+    filename: 'sprite.css',
+  },
 };
 
 // * schemas
@@ -25,10 +29,20 @@ const configSchema = Joi.object({
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string(), Joi.number().required()),
+  css: Joi.object({
+    minify: Joi.boolean(),
+    filename: Joi.string().min(1),
+  }),
 });
 
 // * types
+type CSSConfig = {
+  minify?: boolean
+  filename?: string;
+};
+
 type SpriteConfig = {
+  css: CSSConfig;
   outDir: string;
   rootDir: string;
   filename: string;
@@ -90,7 +104,7 @@ export const resolveConfig = () => {
   const { error } = configSchema.validate(config, { abortEarly: true });
   if (error) throw new Error(error.details[0].message);
 
-  config = { ...defaultConfig, ...config };
+  config = { ...defaultConfig, ...config, css: { ...defaultConfig.css, ...config.css } };
 
   console.log(config);
 

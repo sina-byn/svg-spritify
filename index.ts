@@ -13,6 +13,7 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
+  const {} = 
   let css = generatePreflight(config.className);
 
   if (!ok) {
@@ -68,7 +69,7 @@ const init = async () => {
 
   console.log(css);
 
-  fs.writeFileSync(path.join(config.outDir, 'icons.css'), css, 'utf-8');
+  fs.writeFileSync(path.join(config.outDir, `${config.css.filename}.css`), css, 'utf-8');
 };
 
 init();
