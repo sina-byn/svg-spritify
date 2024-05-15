@@ -1,3 +1,7 @@
+export const generatePreflight = (className: string) => {
+  return `.${className}{display:none;}.${className}:target{display:inline;}`;
+};
+
 export const sortBreakpoints = (breakpoints: Record<string, number>) => {
   return Object.entries(breakpoints)
     .sort((a, b) => a[1] - b[1])
