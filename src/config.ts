@@ -1,6 +1,7 @@
 import path from 'path';
 import Joi from 'joi';
 import fs from 'fs';
+import { sortBreakpoints } from './css';
 
 // * data
 const defaultConfig: Partial<SpriteConfig> = {
@@ -32,7 +33,7 @@ type SpriteConfig = {
 export const resolvePaths = (config: SpriteConfig) => {
   const { filename, themes, breakpoints } = config;
 
-  const breakpointNames = ['DEFAULT', ...Object.keys(breakpoints)];
+  const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints)];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 1;
   const multiTheme = themes.length > 1;
 
