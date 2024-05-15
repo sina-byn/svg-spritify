@@ -7,6 +7,7 @@ import { sortBreakpoints } from './css';
 // * data
 const defaultConfig: Partial<SpriteConfig> = {
   outDir: '.output',
+  rootDir: 'icons',
   filename: 'sprite',
   className: 'sprite',
   media: 'min',
@@ -17,6 +18,7 @@ const defaultConfig: Partial<SpriteConfig> = {
 // * schemas
 const configSchema = Joi.object({
   outDir: Joi.string().min(1),
+  rootDir: Joi.string().min(1),
   filename: Joi.string().min(1),
   className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
@@ -27,6 +29,7 @@ const configSchema = Joi.object({
 // * types
 type SpriteConfig = {
   outDir: string;
+  rootDir: string;
   filename: string;
   className: string;
   media: 'min' | 'max';
@@ -35,7 +38,7 @@ type SpriteConfig = {
 };
 
 export const resolvePaths = (config: SpriteConfig) => {
-  const { filename, themes, breakpoints } = config;
+  const { rootDir, filename, themes, breakpoints } = config;
 
   const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints)];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 1;
@@ -44,7 +47,7 @@ export const resolvePaths = (config: SpriteConfig) => {
   if (multiTheme && multiBreakpoint) {
     return {
       inputs: themes.flatMap(theme => {
-        return breakpointNames.map(bp => path.join('icons', theme, bp));
+        return breakpointNames.map(bp => path.join(rootDir, theme, bp));
       }),
       outputs: themes.flatMap(theme => {
         theme = theme === 'light' ? '' : `-${theme}`;
@@ -59,19 +62,19 @@ export const resolvePaths = (config: SpriteConfig) => {
 
   if (multiTheme) {
     return {
-      inputs: themes.map(theme => path.join('icons', theme)),
+      inputs: themes.map(theme => path.join(rootDir, theme)),
       outputs: themes.map(theme => filename + (theme === 'light' ? '' : `-${theme}`) + '.svg'),
     };
   }
 
   if (multiBreakpoint) {
     return {
-      inputs: breakpointNames.map(bp => path.join('icons', bp)),
+      inputs: breakpointNames.map(bp => path.join(rootDir, bp)),
       outputs: breakpointNames.map(bp => filename + (bp === 'DEFAULT' ? '' : `-${bp}`) + '.svg'),
     };
   }
 
-  return { inputs: ['icons'], outputs: [`${filename}.svg`] };
+  return { inputs: [rootDir], outputs: [`${filename}.svg`] };
 };
 
 export const resolveConfig = () => {
@@ -91,6 +94,10 @@ export const resolveConfig = () => {
   console.log(config);
 
   if (!fs.existsSync(config.outDir)) fs.mkdirSync(config.outDir, { recursive: true });
+
+  if (!fs.existsSync(config.rootDir)) {
+    throw new Error("invalid config provided - rootDir doesn't exist");
+  }
 
   return config;
 };
