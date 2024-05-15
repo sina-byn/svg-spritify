@@ -56,7 +56,7 @@ const init = async () => {
     const spriteCSS = ids.reduce((css, id, index) => {
       const [width, height] = dimensions[index];
 
-      css += `${themeSelector}.${id}{width:${width}px; height:${height}px;background-image: url('${output}');}`;
+      css += `${themeSelector}.${id}{width:${width}px; height:${height}px;background-image: url('${output}#${id}');}`;
 
       return css;
     }, '');
