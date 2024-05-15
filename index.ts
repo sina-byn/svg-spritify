@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 import { resolvePaths, resolveConfig } from './src/config';
+import { generateMediaQuery } from './src/css';
 import logger from './src/logger';
 
 // * utils
@@ -11,6 +12,7 @@ import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/ut
 const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
+  let css = '';
 
   const { ok, nonExistentPaths } = pathsExist(...inputs);
 
@@ -42,8 +44,32 @@ const init = async () => {
     console.log(dimensions);
     console.log(ids);
 
+    const [theme = 'light', breakpoint = 'DEFAULT'] = input
+      .replace('icons', '')
+      .split(path.sep)
+      .filter(Boolean);
+
     fs.writeFileSync(output, sprite, 'utf-8');
+
+    const themeSelector = theme === 'light' ? '' : `.${theme} `;
+
+    const spriteCSS = ids.reduce((css, id, index) => {
+      const [width, height] = dimensions[index];
+
+      css += `${themeSelector}.${id}{width:${width}px; height:${height}px}`;
+
+      return css;
+    }, '');
+
+    css +=
+      breakpoint !== 'DEFAULT'
+        ? generateMediaQuery(config.breakpoints[breakpoint], spriteCSS)
+        : spriteCSS;
   }
+
+  console.log(css);
+
+  fs.writeFileSync('icons.css', css, 'utf-8');
 };
 
 init();
