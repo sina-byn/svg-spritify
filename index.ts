@@ -1,3 +1,4 @@
+import cssBeautify from 'cssbeautify';
 import mixer from 'svg-mixer';
 import path from 'path';
 import fs from 'fs';
@@ -13,7 +14,6 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
-  const {} = 
   let css = generatePreflight(config.className);
 
   if (!ok) {
@@ -67,9 +67,11 @@ const init = async () => {
         : spriteCSS;
   }
 
-  console.log(css);
-
-  fs.writeFileSync(path.join(config.outDir, `${config.css.filename}.css`), css, 'utf-8');
+  fs.writeFileSync(
+    path.join(config.outDir, `${config.css.filename}.css`),
+    config.css.minify ? css : cssBeautify(css, { indent: '  ' }),
+    'utf-8'
+  );
 };
 
 init();
