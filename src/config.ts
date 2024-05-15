@@ -16,7 +16,7 @@ const defaultConfig: Partial<SpriteConfig> = {
   breakpoints: {},
   css: {
     minify: false,
-    filename: 'sprite.css',
+    filename: 'sprite',
   },
 };
 
