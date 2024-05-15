@@ -79,7 +79,7 @@ export const resolvePaths = (config: SpriteConfig) => {
 };
 
 export const resolveConfig = () => {
-  const configPath = path.join(pkgDir() ?? process.cwd(), '..', 'sprite.config.json');
+  const configPath = path.join(pkgDir() ?? process.cwd(), 'sprite.config.json');
 
   if (!fs.existsSync(configPath)) {
     throw new Error('failed to resolve config - config file not found');
