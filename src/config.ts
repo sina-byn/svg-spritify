@@ -1,3 +1,4 @@
+import { sync as pkgDir } from 'pkg-dir';
 import path from 'path';
 import Joi from 'joi';
 import fs from 'fs';
@@ -78,7 +79,7 @@ export const resolvePaths = (config: SpriteConfig) => {
 };
 
 export const resolveConfig = () => {
-  const configPath = path.join(__dirname, '..', 'sprite.config.json');
+  const configPath = path.join(pkgDir() ?? process.cwd(), '..', 'sprite.config.json');
 
   if (!fs.existsSync(configPath)) {
     throw new Error('failed to resolve config - config file not found');
