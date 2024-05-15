@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 import { resolvePaths, resolveConfig } from './src/config';
-import { generateMediaQuery } from './src/css';
+import { generatePreflight, generateMediaQuery } from './src/css';
 import logger from './src/logger';
 
 // * utils
@@ -12,7 +12,7 @@ import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/ut
 const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
-  let css = '';
+  let css = generatePreflight(config.className);
 
   const { ok, nonExistentPaths } = pathsExist(...inputs);
 
