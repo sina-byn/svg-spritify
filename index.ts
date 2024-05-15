@@ -12,13 +12,8 @@ import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/ut
 const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
-  let css = generatePreflight(config.className);
-
-  outputs.forEach((output, index) => (outputs[index] = path.join(config.outDir, output)));
-
-  console.log(outputs);
-
   const { ok, nonExistentPaths } = pathsExist(...inputs);
+  let css = generatePreflight(config.className);
 
   if (!ok) {
     throw new Error(
@@ -53,14 +48,14 @@ const init = async () => {
       .split(path.sep)
       .filter(Boolean);
 
-    fs.writeFileSync(output, sprite, 'utf-8');
+    fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
 
     const themeSelector = theme === 'light' ? '' : `.${theme} `;
 
     const spriteCSS = ids.reduce((css, id, index) => {
       const [width, height] = dimensions[index];
 
-      css += `${themeSelector}.${id}{width:${width}px; height:${height}px}`;
+      css += `${themeSelector}.${id}{width:${width}px; height:${height}px;background-image: url('${output}');}`;
 
       return css;
     }, '');
