@@ -64,9 +64,9 @@ export type SpriteConfig = {
 };
 
 export const resolvePaths = (config: SpriteConfig) => {
-  const { rootDir, filename, themes, breakpoints } = config;
+  const { media, rootDir, filename, themes, breakpoints } = config;
 
-  const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints)];
+  const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints, media === 'max')];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 1;
   const multiTheme = themes.length > 1;
 

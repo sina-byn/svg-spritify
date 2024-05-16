@@ -70,7 +70,7 @@ const init = async () => {
 
     css +=
       breakpoint !== 'DEFAULT'
-        ? generateMediaQuery(config.breakpoints[breakpoint], spriteCSS)
+        ? generateMediaQuery(config.breakpoints[breakpoint], spriteCSS, config.media === 'max')
         : spriteCSS;
   }
 

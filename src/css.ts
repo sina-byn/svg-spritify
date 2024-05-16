@@ -6,20 +6,27 @@ export const generatePreflight = (className: string) => {
 };
 
 export const generateBreakpointUtils = (config: SpriteConfig) => {
-  const { className, breakpoints } = config;
-  const sortedBreakpoints = sortBreakpoints(breakpoints);
+  const { media, className, breakpoints } = config;
+  const shouldUseMaxMedia = media === 'max';
+  const sortedBreakpoints = sortBreakpoints(breakpoints, shouldUseMaxMedia);
 
   return sortedBreakpoints.reduce((utilsCSS, breakpoint) => {
     const selector = `.${className}-${breakpoint}`;
+
     utilsCSS += `${selector}{display:none;}`;
-    utilsCSS += generateMediaQuery(breakpoints[breakpoint], `${selector}{display:inline;}`);
+    utilsCSS += generateMediaQuery(
+      breakpoints[breakpoint],
+      `${selector}{display:inline;}`,
+      shouldUseMaxMedia
+    );
+
     return utilsCSS;
   }, '');
 };
 
-export const sortBreakpoints = (breakpoints: Record<string, number>) => {
+export const sortBreakpoints = (breakpoints: Record<string, number>, max: boolean = false) => {
   return Object.entries(breakpoints)
-    .sort((a, b) => a[1] - b[1])
+    .sort((a, b) => (max ? b[1] - a[1] : a[1] - b[1]))
     .map(bp => bp[0]);
 };
 
