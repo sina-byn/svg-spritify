@@ -5,11 +5,11 @@ import fs from 'fs';
 
 import { generatePreflight, generateMediaQuery } from './src/css';
 import { resolvePaths, resolveConfig } from './src/config';
+import generateDemo from './src/demo';
 import logger from './src/logger';
 
 // * utils
 import { pathsExist, extractAttr, parseViewBox, type Dimensions } from './src/utils';
-import generateDemo from './src/demo';
 
 const init = async () => {
   const config = resolveConfig();
