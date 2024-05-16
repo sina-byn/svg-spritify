@@ -7,14 +7,16 @@
     "dist"
   ],
   "scripts": {
-    "dev": "nodemon",
-    "build": "tsc"
+    "assets:copy": "cpx \"src/assets/**\" \"dist/src/assets\"",
+    "build": "tsc && npm run assets:copy",
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/cssbeautify": "^0.3.5",
+    "cpx": "^1.5.0",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
