@@ -14,6 +14,7 @@ const defaultConfig: Partial<SpriteConfig> = {
   media: 'min',
   themes: ['light'],
   breakpoints: {},
+  breakpointUtils: true,
   demo: false,
   css: {
     minify: false,
@@ -30,6 +31,7 @@ const configSchema = Joi.object({
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string(), Joi.number().required()),
+  breakpointUtils: Joi.boolean(),
   demo: Joi.alternatives(
     Joi.boolean(),
     Joi.object().pattern(Joi.string(), Joi.string().hex().max(6))
@@ -41,12 +43,12 @@ const configSchema = Joi.object({
 });
 
 // * types
+type DemoConfig = boolean | Record<string, string>;
+
 type CSSConfig = {
   minify?: boolean;
   filename?: string;
 };
-
-type DemoConfig = boolean | Record<string, string>;
 
 export type SpriteConfig = {
   css: CSSConfig;
@@ -57,6 +59,7 @@ export type SpriteConfig = {
   media: 'min' | 'max';
   themes: string[];
   breakpoints: Record<string, number>;
+  breakpointUtils: boolean;
   demo: DemoConfig;
 };
 
@@ -112,7 +115,11 @@ export const resolveConfig = () => {
   const { error } = configSchema.validate(config, { abortEarly: true });
   if (error) throw new Error(error.details[0].message);
 
-  config = { ...defaultConfig, ...config, css: { ...defaultConfig.css, ...config.css } };
+  config = {
+    ...defaultConfig,
+    ...config,
+    css: { ...defaultConfig.css, ...config.css },
+  };
 
   console.log(config);
 
