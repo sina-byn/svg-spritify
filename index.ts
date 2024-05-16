@@ -3,7 +3,7 @@ import mixer from 'svg-mixer';
 import path from 'path';
 import fs from 'fs';
 
-import { generatePreflight, generateMediaQuery } from './src/css';
+import { generatePreflight, generateMediaQuery, generateBreakpointUtils } from './src/css';
 import { resolvePaths, resolveConfig } from './src/config';
 import generateDemo from './src/demo';
 import logger from './src/logger';
@@ -18,6 +18,8 @@ const init = async () => {
   const uniqueIds = new Set<string>();
 
   let css = generatePreflight(config.className);
+
+  if (config.breakpointUtils) css += generateBreakpointUtils(config);
 
   if (!ok) {
     throw new Error(

@@ -1,5 +1,20 @@
+// * types
+import type { SpriteConfig } from './config';
+
 export const generatePreflight = (className: string) => {
   return `.${className}{display:none;}.${className}:target{display:inline;}`;
+};
+
+export const generateBreakpointUtils = (config: SpriteConfig) => {
+  const { className, breakpoints } = config;
+  const sortedBreakpoints = sortBreakpoints(breakpoints);
+
+  return sortedBreakpoints.reduce((utilsCSS, breakpoint) => {
+    const selector = `.${className}-${breakpoint}`;
+    utilsCSS += `${selector}{display:none;}`;
+    utilsCSS += generateMediaQuery(breakpoints[breakpoint], `${selector}{display:inline;}`);
+    return utilsCSS;
+  }, '');
 };
 
 export const sortBreakpoints = (breakpoints: Record<string, number>) => {
