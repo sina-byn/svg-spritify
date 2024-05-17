@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "sprite": "dist/index.js"
+  },
   "files": [
     "dist"
   ],
