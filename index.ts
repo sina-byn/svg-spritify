@@ -34,8 +34,8 @@ const init = async () => {
   }
 
   for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i];
     const output = outputs[i];
+    let input = inputs[i];
 
     const { content: sprite } = await mixer(path.join(input, '*.svg'), {
       // @ts-ignore
@@ -52,15 +52,26 @@ const init = async () => {
 
     if (config.demo) ids.forEach(id => uniqueIds.add(id));
 
+    input = input.replace(config.rootDir, '').split(path.sep).filter(Boolean).join('-');
+
+    const themeRegex = new RegExp(`${config.themes.join('|')}`, 'gi');
+    const breakpointRegex = new RegExp(
+      `${['DEFAULT', ...Object.keys(config.breakpoints)].join('|')}`,
+      'gi'
+    );
+
+    const theme = (themeRegex.exec(input) ?? [defaultTheme])[0];
+    const breakpoint = (breakpointRegex.exec(input) ?? ['DEFAULT'])[0];
+
+    console.log(theme, 'theme');
+    console.log(breakpoint, 'breakpoint');
+
     console.log(dimensions);
     console.log(ids);
 
-    const [theme = defaultTheme, breakpoint = 'DEFAULT'] = input
-      .replace('icons', '')
-      .split(path.sep)
-      .filter(Boolean);
-
     fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
+
+    console.log(input.replace(config.rootDir, '').split(path.sep).join('-'), 'themesss');
 
     const themeSelector = theme === defaultTheme ? '' : `.${theme} `;
 
