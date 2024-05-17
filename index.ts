@@ -64,15 +64,13 @@ const init = async () => {
     const theme = (themeRegex.exec(input) ?? [defaultTheme])[0];
     const breakpoint = (breakpointRegex.exec(input) ?? ['DEFAULT'])[0];
 
-    console.log(theme, 'theme');
-    console.log(breakpoint, 'breakpoint');
+    // console.log(theme, 'theme');
+    // console.log(breakpoint, 'breakpoint');
 
-    console.log(dimensions);
-    console.log(ids);
+    // console.log(dimensions);
+    // console.log(ids);
 
     fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
-
-    console.log(input.replace(config.rootDir, '').split(path.sep).join('-'), 'themesss');
 
     const themeSelector = theme === defaultTheme ? '' : `.${theme} `;
 

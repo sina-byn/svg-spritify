@@ -139,4 +139,4 @@ export const resolveConfig = () => {
   return config;
 };
 
-console.log(resolvePaths(resolveConfig()));
+// console.log(resolvePaths(resolveConfig()));
