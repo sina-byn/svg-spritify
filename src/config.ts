@@ -29,6 +29,7 @@ const configSchema = Joi.object({
   filename: Joi.string().min(1),
   className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
+  defaultTheme: Joi.string().min(1),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string().invalid('DEFAULT'), Joi.number().required()),
   breakpointUtils: Joi.boolean(),
@@ -58,6 +59,7 @@ export type SpriteConfig = {
   className: string;
   media: 'min' | 'max';
   themes: string[];
+  defaultTheme: string;
   breakpoints: Record<string, number>;
   breakpointUtils: boolean;
   demo: DemoConfig;
@@ -121,7 +123,10 @@ export const resolveConfig = () => {
     css: { ...defaultConfig.css, ...config.css },
   };
 
-  console.log(config);
+  if (!config.defaultTheme) config.defaultTheme = config.themes[0];
+
+  console.log(config.defaultTheme);
+  
 
   if (!fs.existsSync(config.outDir)) fs.mkdirSync(config.outDir, { recursive: true });
 
