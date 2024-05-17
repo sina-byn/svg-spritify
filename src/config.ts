@@ -66,7 +66,7 @@ export type SpriteConfig = {
 };
 
 export const resolvePaths = (config: SpriteConfig) => {
-  const { media, rootDir, filename, themes, breakpoints } = config;
+  const { media, rootDir, filename, themes, breakpoints, defaultTheme } = config;
 
   const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints, media === 'max')];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 0;
@@ -78,7 +78,7 @@ export const resolvePaths = (config: SpriteConfig) => {
         return breakpointNames.map(bp => path.join(rootDir, theme, bp));
       }),
       outputs: themes.flatMap(theme => {
-        theme = theme === 'light' ? '' : `-${theme}`;
+        theme = theme === defaultTheme ? '' : `-${theme}`;
 
         return breakpointNames.map(bp => {
           bp = bp === 'DEFAULT' ? '' : `-${bp}`;
@@ -91,7 +91,7 @@ export const resolvePaths = (config: SpriteConfig) => {
   if (multiTheme) {
     return {
       inputs: themes.map(theme => path.join(rootDir, theme)),
-      outputs: themes.map(theme => filename + (theme === 'light' ? '' : `-${theme}`) + '.svg'),
+      outputs: themes.map(theme => filename + (theme === defaultTheme ? '' : `-${theme}`) + '.svg'),
     };
   }
 
@@ -125,8 +125,10 @@ export const resolveConfig = () => {
 
   if (!config.defaultTheme) config.defaultTheme = config.themes[0];
 
-  console.log(config.defaultTheme);
-  
+  if (config.themes[0] !== config.defaultTheme) {
+    config.themes.unshift(config.defaultTheme);
+    config.themes = [...new Set(config.themes)];
+  }
 
   if (!fs.existsSync(config.outDir)) fs.mkdirSync(config.outDir, { recursive: true });
 

@@ -15,7 +15,7 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
-  const { className } = config;
+  const { className, defaultTheme } = config;
   const uniqueIds = new Set<string>();
 
   let css = `.${className}{display:inline-block;}`;
@@ -55,18 +55,18 @@ const init = async () => {
     console.log(dimensions);
     console.log(ids);
 
-    const [theme = 'light', breakpoint = 'DEFAULT'] = input
+    const [theme = defaultTheme, breakpoint = 'DEFAULT'] = input
       .replace('icons', '')
       .split(path.sep)
       .filter(Boolean);
 
     fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
 
-    const themeSelector = theme === 'light' ? '' : `.${theme} `;
+    const themeSelector = theme === defaultTheme ? '' : `.${theme} `;
 
     const spriteCSS = ids.reduce((css, id, index) => {
       const [width, height] = dimensions[index];
-      const dimensionsCSS = theme === 'light' ? `width:${width}px;height:${height}px;` : '';
+      const dimensionsCSS = theme === defaultTheme ? `width:${width}px;height:${height}px;` : '';
 
       css += `${themeSelector}.${id}{${dimensionsCSS}background-image: url('${output}#${id}');}`;
 
