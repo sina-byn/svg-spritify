@@ -1,10 +1,6 @@
 // * types
 import type { SpriteConfig } from './config';
 
-export const generatePreflight = (className: string) => {
-  return `.${className}{display:none;}.${className}:target{display:inline;}`;
-};
-
 export const generateBreakpointUtils = (config: SpriteConfig) => {
   const { media, className, breakpoints } = config;
   const shouldUseMaxMedia = media === 'max';

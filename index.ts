@@ -3,7 +3,7 @@ import mixer from 'svg-mixer';
 import path from 'path';
 import fs from 'fs';
 
-import { generatePreflight, generateMediaQuery, generateBreakpointUtils } from './src/css';
+import { generateMediaQuery, generateBreakpointUtils } from './src/css';
 import { resolvePaths, resolveConfig } from './src/config';
 import generateDemo from './src/demo';
 import logger from './src/logger';
@@ -15,9 +15,10 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
+  const { className } = config;
   const uniqueIds = new Set<string>();
 
-  let css = generatePreflight(config.className);
+  let css = `.${className}{display:inline-block;}`;
 
   if (config.breakpointUtils) css += generateBreakpointUtils(config);
 
@@ -38,7 +39,10 @@ const init = async () => {
 
     const { content: sprite } = await mixer(path.join(input, '*.svg'), {
       // @ts-ignore
-      spriteConfig: { usageClassName: config.className, styles: '' },
+      spriteConfig: {
+        usageClassName: config.className,
+        styles: `.${className}{display:none;}.${className}:target{display:inline;}`,
+      },
       spriteType: 'stack',
       prettify: true,
     });
