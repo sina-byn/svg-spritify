@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import cssBeautify from 'cssbeautify';
 import mixer from 'svg-mixer';
 import path from 'path';
