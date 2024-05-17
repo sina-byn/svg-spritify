@@ -30,7 +30,7 @@ const configSchema = Joi.object({
   className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
   themes: Joi.array().items(Joi.string().min(0)).min(1),
-  breakpoints: Joi.object().pattern(Joi.string(), Joi.number().required()),
+  breakpoints: Joi.object().pattern(Joi.string().invalid('DEFAULT'), Joi.number().required()),
   breakpointUtils: Joi.boolean(),
   demo: Joi.alternatives(
     Joi.boolean(),
@@ -67,7 +67,7 @@ export const resolvePaths = (config: SpriteConfig) => {
   const { media, rootDir, filename, themes, breakpoints } = config;
 
   const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints, media === 'max')];
-  const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 1;
+  const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 0;
   const multiTheme = themes.length > 1;
 
   if (multiTheme && multiBreakpoint) {
