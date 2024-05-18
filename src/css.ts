@@ -12,7 +12,7 @@ export const generateBreakpointUtils = (config: SpriteConfig) => {
     utilsCSS += `${selector}{display:none;}`;
     utilsCSS += generateMediaQuery(
       breakpoints[breakpoint],
-      `${selector}{display:inline;}`,
+      `${selector}{display:inline-block;}`,
       shouldUseMaxMedia
     );
 
