@@ -1,7 +1,6 @@
 {
   "name": "svg-spritify",
   "version": "1.0.0",
-  "description": "",
   "main": "dist/index.js",
   "bin": {
     "sprite": "dist/index.js"
@@ -12,11 +11,14 @@
   "scripts": {
     "assets:copy": "cpx \"src/assets/**\" \"dist/src/assets\"",
     "build": "tsc && npm run assets:copy",
+    "prepublish": "npm run build",
     "dev": "nodemon"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "author": "Sina Bayandorian <sina.sina.bayan@protonmail.com> (https://portfolio-sina-byn.vercel.app/)",
+  "description": "A CLI tool for you to generate SVG sprites ASAP with support for multi-theme and multi-breakpoint configurations",
+  "repository": "github:sina-byn/svg-spritify",
+  "homepage": "https://github.com/sina-byn/svg-spritify#readme",
   "devDependencies": {
     "@types/cssbeautify": "^0.3.5",
     "cpx": "^1.5.0",
@@ -30,5 +32,26 @@
     "joi": "^17.13.1",
     "pkg-dir": "^5.0.0",
     "svg-mixer": "^2.3.14"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/sina-byn/svg-spritify/issues",
+    "email": "sina.sina.bayan@protonmail.com"
+  },
+  "keywords": [
+    "css",
+    "svg",
+    "icons",
+    "sprites",
+    "svg-icon",
+    "svg-icons",
+    "css-sprites",
+    "svg-sprites",
+    "css-generator",
+    "icon-generator",
+    "responsive-icons",
+    "sprite-generator",
+    "automation",
+    "svg-to-css",
+    "asset-management"
+  ]
 }
