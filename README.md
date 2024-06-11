@@ -11,7 +11,7 @@ Please consider following this project's author, [Sina Bayandorian](https://gith
 - [Install](#install)
 - [Usage](#usage)
 - [Configuration](#configuration)
-    - [Config Variants - Must-Read:warning:](#config-variants)
+    - [Config Variants - Must-Read ⚠️](#config-variants)
     - [Theming](#theming)
     - [Breakpoint Utils](#breakpoint-utils)
     - [Demo](#demo)
