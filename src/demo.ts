@@ -15,7 +15,7 @@ const generateDemo = (ids: string[], config: SpriteConfig) => {
 
   template = template.replace(
     /<!--\s*__icons__\s*-->/g,
-    ids.map(id => `<i class="sprite ${id}"></i>`).join('')
+    ids.map(id => `<i class="${config.className} ${id}"></i>`).join('')
   );
 
   template = template.replace(
