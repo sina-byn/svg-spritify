@@ -96,6 +96,8 @@ const init = async () => {
   );
 
   if (config.demo) generateDemo([...uniqueIds], config);
+
+  console.log(logger.success('Your svg sprites were generated successfully =)'));
 };
 
 init();
