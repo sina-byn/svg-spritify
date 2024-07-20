@@ -68,6 +68,9 @@ you need one sub-folder per `theme` directly inside the `rootDir` - the SVG icon
 you need one sub-folder per `theme` directly inside the `rootDir`, and then one sub-folder per `breakpoint` directly inside each theme's sub-folder - the breakpoint's sub-folder is where you place the SVG icons
     - `rootDir/theme/breakpoint`
 
+- When managing multiple breakpoints, it's important to ensure there's a fallback for screen sizes that don't meet any specified conditions. This is achieved by using a DEFAULT folder alongside your breakpoint-specific folders.
+    - Suppose you have the following breakpoint configuration `"lg": 1024` with the media type set to `min`, the icons inside the `lg` folder will display when the viewport width is `>= 1024px`. For screen sizes below `1024px`, the icons from the DEFAULT folder will be used.
+
 ### Theming
 
 Theming is implemented using classNames in this package. Once you define your themes inside `sprite.config.json`, the output css will look something like :
