@@ -38,6 +38,7 @@ This CLI comes with a proper default config that can be completely customized to
 |:-----------------|:-----------------------------------------|:------------------------------------------|:--------------------------------------------------------------------|
 |     rootDir     |                 string                  |                 "icons"                  |         the directory where you should put your SVG icons          |
 |     outDir      |                 string                  |                ".output"                 |    the directory where sprite SVG(s) and CSS will be generated     |
+|      tag        |                 string                  |               no HTML tag                |          the HTML tag to be added to the generated CSS             |
 |    filename     |                 string                  |                 "sprite"                 |                   output SVG files' prefix name                    |
 |    className    |                 string                  |                 "sprite"                 |        the className to be used for both CSS and SVG files         |
 |      media      |                  "min"                  |                  "max"                   |                               "min"                                |
