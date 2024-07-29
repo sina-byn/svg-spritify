@@ -28,6 +28,7 @@ const configSchema = Joi.object({
   outDir: Joi.string().min(1),
   rootDir: Joi.string().min(1),
   filename: Joi.string().min(1),
+  tag: Joi.string().min(1),
   className: Joi.string().min(1),
   media: Joi.string().valid('min', 'max'),
   defaultTheme: Joi.string().min(1),
@@ -68,6 +69,7 @@ type CSSConfig = {
 };
 
 export type SpriteConfig = {
+  tag?: string;
   css: CSSConfig;
   outDir: string;
   rootDir: string;
@@ -83,7 +85,7 @@ export type SpriteConfig = {
 };
 
 export const resolvePaths = (config: SpriteConfig) => {
-  const { media, rootDir, filename, themes, breakpoints, defaultTheme } = config;
+  const { tag, media, rootDir, filename, themes, breakpoints, defaultTheme } = config;
 
   const breakpointNames = ['DEFAULT', ...sortBreakpoints(breakpoints, media === 'max')];
   const multiBreakpoint = Object.values(breakpoints).filter(Boolean).length > 0;

@@ -74,12 +74,13 @@ const init = async () => {
     fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
 
     const themeSelector = theme === defaultTheme ? '' : `.${theme} `;
+    const tagSelector = config.tag ? `${config.tag} ` : '';
 
     const spriteCSS = ids.reduce((css, id, index) => {
       const [width, height] = dimensions[index];
       const dimensionsCSS = theme === defaultTheme ? `width:${width}px;height:${height}px;` : '';
 
-      css += `${themeSelector}.${id}{${dimensionsCSS}background-image: url('${output}#${id}');}`;
+      css += `${tagSelector}${themeSelector}.${id}{${dimensionsCSS}background-image: url('${output}#${id}');}`;
 
       return css;
     }, '');

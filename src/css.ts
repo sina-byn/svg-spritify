@@ -2,12 +2,13 @@
 import type { SpriteConfig } from './config';
 
 export const generateBreakpointUtils = (config: SpriteConfig) => {
-  const { media, className, breakpoints } = config;
+  const { tag, media, className, breakpoints } = config;
   const shouldUseMaxMedia = media === 'max';
   const sortedBreakpoints = sortBreakpoints(breakpoints, shouldUseMaxMedia);
+  const tagSelector = tag ? `${tag} ` : '';
 
   return sortedBreakpoints.reduce((utilsCSS, breakpoint) => {
-    const selector = `.${className}-${breakpoint}`;
+    const selector = `${tagSelector}.${className}-${breakpoint}`;
 
     utilsCSS += `${selector}{display:none;}`;
     utilsCSS += generateMediaQuery(
