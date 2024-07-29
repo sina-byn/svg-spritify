@@ -17,10 +17,11 @@ const init = async () => {
   const config = resolveConfig();
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
-  const { className, defaultTheme } = config;
+  const { tag, className, defaultTheme } = config;
+  const tagSelector = tag ? `${tag} ` : '';
   const uniqueIds = new Set<string>();
 
-  let css = `.${className}{display:inline-block;}`;
+  let css = `${tagSelector}.${className}{display:inline-block;}`;
 
   if (config.breakpointUtils) css += generateBreakpointUtils(config);
 
@@ -74,7 +75,6 @@ const init = async () => {
     fs.writeFileSync(path.join(config.outDir, output), sprite, 'utf-8');
 
     const themeSelector = theme === defaultTheme ? '' : `.${theme} `;
-    const tagSelector = config.tag ? `${config.tag} ` : '';
 
     const spriteCSS = ids.reduce((css, id, index) => {
       const [width, height] = dimensions[index];
