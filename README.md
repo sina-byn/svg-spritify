@@ -34,19 +34,20 @@ $ npx sprite
 
 This CLI comes with a proper default config that can be completely customized to best fit your needs. In order to override the default configuration you need to create a `sprite.config.json` at the root of your project :
 
-| Name            | Type                                      | Default                               | Description                                                         |
-|:-----------------|:-------------------------------------------|:---------------------------------------|:---------------------------------------------------------------------|
-| rootDir         | string                                    | "icons"                               | the directory where you should put your SVG icons                   |
-| outDir          | string                                    | ".output"                             | the directory where sprite SVG(s) and CSS will be generated         |
-| filename        | string                                    | "sprite"                              | output SVG files' prefix name                                       |
-| className       | string                                    | "sprite"                              | the className to be used for both CSS and SVG files                 |
-| media           | "min" \| "max"                            | "min"                                 | the type of the media query used for responsive icons               |
-| themes          | string[ ]                                  | ["light"]                             | the themes that you want your icons to support                      |
-| defaultTheme    | string                                    | themes[0]                             | the default theme of your icons - [explained below](#theming)                   |
-| breakpoints     | { [bp: string]: number }                  | { }                                   | the breakpoints used for responsive icons                           |
-| breakpointUtils | boolean                                   | true                                  | if set to `true`, outputs per-breakpoint CSS utils - [explained below](#breakpoint-utils) |
-| css             | { minify?: boolean; filename?: string }   | { minify: false, filename: 'sprite' } | output CSS configuration                                            |
-| demo            | boolean \| { [theme: string]: hex_color } | false                                 | demo configuration - [explained below](#demo)                                |
+|      Name       |                  Type                   |                 Default                  |                            Description                             |
+|:-----------------|:-----------------------------------------|:------------------------------------------|:--------------------------------------------------------------------|
+|     rootDir     |                 string                  |                 "icons"                  |         the directory where you should put your SVG icons          |
+|     outDir      |                 string                  |                ".output"                 |    the directory where sprite SVG(s) and CSS will be generated     |
+|    filename     |                 string                  |                 "sprite"                 |                   output SVG files' prefix name                    |
+|    className    |                 string                  |                 "sprite"                 |        the className to be used for both CSS and SVG files         |
+|      media      |                  "min"                  |                  "max"                   |                               "min"                                |
+|     themes      |                string[ ]                |                ["light"]                 |           the themes that you want your icons to support           |
+|  defaultTheme   |                 string                  |                themes[0]                 |         the default theme of your icons - explained below          |
+|   breakpoints   |        { [bp: string]: number }         |                   { }                    |             the breakpoints used for responsive icons              |
+| breakpointUtils |                 boolean                 |                   true                   | if set to true, outputs per-breakpoint CSS utils - explained below |
+|       css       | { minify?: boolean; filename?: string } |  { minify: false, filename: 'sprite' }   |                      output CSS configuration                      |
+|      demo       |                 boolean                 |      { [theme: string]: hex_color }      |                               false                                |
+|   typescript    |                 boolean | { filename?: string; typeName?: string }                 | { filename?: string; typeName?: string } |   outputs a TypeScript type for icon names unless set to `false`   |
 
 ### Config Variants
 
