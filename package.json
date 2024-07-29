@@ -17,7 +17,10 @@
   "license": "MIT",
   "author": "Sina Bayandorian <sina.sina.bayan@protonmail.com> (https://portfolio-sina-byn.vercel.app/)",
   "description": "A CLI tool for you to generate SVG sprites ASAP with support for multi-theme and multi-breakpoint configurations",
-  "repository": "github:sina-byn/svg-spritify",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sina-byn/svg-spritify.git"
+  },
   "homepage": "https://github.com/sina-byn/svg-spritify#readme",
   "devDependencies": {
     "@types/cssbeautify": "^0.3.5",
