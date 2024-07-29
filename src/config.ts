@@ -60,7 +60,7 @@ const configSchema = Joi.object({
 // * types
 type DemoConfig = boolean | Record<string, string>;
 
-type TypescriptConfig = boolean | { typeName: string; filename?: string };
+type TypescriptConfig = boolean | { typeName?: string; filename?: string };
 
 type CSSConfig = {
   minify?: boolean;

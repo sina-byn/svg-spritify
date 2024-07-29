@@ -10,7 +10,7 @@ const generateType = (ids: string[], config: SpriteConfig) => {
   let filename = 'icons';
 
   if (typeof tsConfig === 'object') {
-    typeName = tsConfig.typeName;
+    typeName = tsConfig.typeName ?? typeName;
     filename = tsConfig.filename ?? filename;
   }
 
