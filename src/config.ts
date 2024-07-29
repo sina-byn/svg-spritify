@@ -16,6 +16,7 @@ const defaultConfig: Partial<SpriteConfig> = {
   breakpoints: {},
   breakpointUtils: true,
   demo: false,
+  typescript: true,
   css: {
     minify: false,
     filename: 'sprite',
@@ -33,6 +34,19 @@ const configSchema = Joi.object({
   themes: Joi.array().items(Joi.string().min(0)).min(1),
   breakpoints: Joi.object().pattern(Joi.string().invalid('DEFAULT'), Joi.number().required()),
   breakpointUtils: Joi.boolean(),
+  typescript: Joi.alternatives(
+    Joi.boolean(),
+    Joi.object({
+      filename: Joi.string().min(1),
+      typeName: Joi.string()
+        .min(1)
+        .regex(/\s+|^\d+/, { invert: true })
+        .messages({
+          'string.pattern.invert.base':
+            'invalid typeName - spaces are not allowed and typeName should not start with a digit',
+        }),
+    })
+  ),
   demo: Joi.alternatives(
     Joi.boolean(),
     Joi.object().pattern(Joi.string(), Joi.string().hex().max(6))
@@ -45,6 +59,8 @@ const configSchema = Joi.object({
 
 // * types
 type DemoConfig = boolean | Record<string, string>;
+
+type TypescriptConfig = boolean | { typeName: string; filename?: string };
 
 type CSSConfig = {
   minify?: boolean;
@@ -63,6 +79,7 @@ export type SpriteConfig = {
   breakpoints: Record<string, number>;
   breakpointUtils: boolean;
   demo: DemoConfig;
+  typescript: TypescriptConfig;
 };
 
 export const resolvePaths = (config: SpriteConfig) => {

@@ -7,6 +7,7 @@ import fs from 'fs';
 import { generateMediaQuery, generateBreakpointUtils } from './src/css';
 import { resolvePaths, resolveConfig } from './src/config';
 import generateDemo from './src/demo';
+import generateType from './src/type';
 import logger from './src/logger';
 
 // * utils
@@ -51,7 +52,7 @@ const init = async () => {
     const dimensions = extractAttr<Dimensions>('viewBox', sprite, parseViewBox);
     const ids = extractAttr<string>('id', sprite);
 
-    if (config.demo) ids.forEach(id => uniqueIds.add(id));
+    if (config.demo || config.typescript) ids.forEach(id => uniqueIds.add(id));
 
     input = input.replace(config.rootDir, '').split(path.sep).filter(Boolean).join('-');
 
@@ -96,6 +97,8 @@ const init = async () => {
   );
 
   if (config.demo) generateDemo([...uniqueIds], config);
+
+  if (config.typescript) generateType([...uniqueIds], config);
 
   console.log(logger.success('Your svg sprites were generated successfully =)'));
 };
