@@ -18,7 +18,7 @@ const init = async () => {
   const { inputs, outputs } = resolvePaths(config);
   const { ok, nonExistentPaths } = pathsExist(...inputs);
   const { tag, className, defaultTheme } = config;
-  const tagSelector = tag ? `${tag} ` : '';
+  const tagSelector = tag ? tag : '';
   const uniqueIds = new Set<string>();
 
   let css = `${tagSelector}.${className}{display:inline-block;}`;
@@ -80,7 +80,7 @@ const init = async () => {
       const [width, height] = dimensions[index];
       const dimensionsCSS = theme === defaultTheme ? `width:${width}px;height:${height}px;` : '';
 
-      css += `${tagSelector}${themeSelector}.${id}{${dimensionsCSS}background-image: url('${output}#${id}');}`;
+      css += `${themeSelector}${tagSelector}.${id}{${dimensionsCSS}background-image: url('${output}#${id}');}`;
 
       return css;
     }, '');

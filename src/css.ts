@@ -5,7 +5,7 @@ export const generateBreakpointUtils = (config: SpriteConfig) => {
   const { tag, media, className, breakpoints } = config;
   const shouldUseMaxMedia = media === 'max';
   const sortedBreakpoints = sortBreakpoints(breakpoints, shouldUseMaxMedia);
-  const tagSelector = tag ? `${tag} ` : '';
+  const tagSelector = tag ? tag : '';
 
   return sortedBreakpoints.reduce((utilsCSS, breakpoint) => {
     const selector = `${tagSelector}.${className}-${breakpoint}`;
