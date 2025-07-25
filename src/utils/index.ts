@@ -6,3 +6,14 @@ export const normalizeColors = (svg: string) => {
     return `${attr}="${color}"`;
   });
 };
+
+export const extractIDs = (svg: string) => {
+  const re = /id="\s*([^"]+)\s*"/g;
+  const IDs: string[] = [];
+
+  let match: RegExpExecArray | null = null;
+
+  while ((match = re.exec(svg))) IDs.push(match[1]);
+
+  return IDs;
+};

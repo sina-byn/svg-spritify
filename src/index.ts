@@ -2,7 +2,7 @@ import fs from 'fs';
 import mixer from 'svg-mixer';
 
 // * utils
-import { normalizeColors } from './utils';
+import { extractIDs, normalizeColors } from './utils';
 
 // * constants
 const CLASS_NAME = 'icon';
@@ -19,6 +19,10 @@ const main = async () => {
   });
 
   const svg = normalizeColors(sprite.content);
+
+  const IDs = extractIDs(svg);
+
+  console.log(IDs);
 
   fs.writeFileSync(FILE_NAME, svg, 'utf-8');
 };
