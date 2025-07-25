@@ -1,5 +1,0 @@
-{
-  "ext": "ts,json",
-  "watch": ["index.ts", "sprite.config.json", "src/**"],
-  "exec": "ts-node index.ts --transpileOnly"
-}
