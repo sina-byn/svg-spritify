@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "ncc build src/index.ts -o dist",
+    "build": "ncc build src/index.ts -o dist --minify",
     "dev": "tsx src/index.ts",
     "dev:watch": "tsx --watch src/index.ts",
     "prepublish": "npm run build"
