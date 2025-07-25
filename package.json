@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "ncc build src/index.ts -o dist --minify",
+    "build": "pkgroll --minify --clean-dist",
     "dev": "tsx src/index.ts",
     "dev:watch": "tsx --watch src/index.ts",
     "prepublishOnly": "npm run build"
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
-    "@vercel/ncc": "^0.38.3",
+    "pkgroll": "^2.14.5",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
