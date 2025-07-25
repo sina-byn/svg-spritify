@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/sina-byn/svg-spritify#readme",
   "dependencies": {
-    "colord": "^2.9.3",
     "svg-mixer": "^2.3.14"
   },
   "bugs": {
