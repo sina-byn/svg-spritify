@@ -1,6 +1,8 @@
 import fs from 'fs';
-
 import mixer from 'svg-mixer';
+
+// * utils
+import { normalizeColors } from './utils';
 
 // * constants
 const CLASS_NAME = 'icon';
@@ -16,7 +18,7 @@ const main = async () => {
     spriteConfig: { usageClassName: CLASS_NAME },
   });
 
-  const svg = sprite.content;
+  const svg = normalizeColors(sprite.content);
 
   fs.writeFileSync(FILE_NAME, svg, 'utf-8');
 };
