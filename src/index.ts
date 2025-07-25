@@ -2,11 +2,12 @@ import fs from 'fs';
 import mixer from 'svg-mixer';
 
 // * utils
-import { extractIDs, normalizeColors } from './utils';
+import { generateTsType, normalizeColors } from './utils';
 
 // * constants
 const CLASS_NAME = 'icon';
 const FILE_NAME = 'icons.svg';
+const TS_FILE_NAME = 'icon.ts';
 
 const PATTERNS = ['**/*.svg', '!**/node_modules/**', `!${FILE_NAME}`];
 
@@ -19,12 +20,10 @@ const main = async () => {
   });
 
   const svg = normalizeColors(sprite.content);
-
-  const IDs = extractIDs(svg);
-
-  console.log(IDs);
+  const TsType = generateTsType(svg);
 
   fs.writeFileSync(FILE_NAME, svg, 'utf-8');
+  fs.writeFileSync(TS_FILE_NAME, TsType, 'utf-8');
 };
 
 main();

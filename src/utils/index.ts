@@ -7,7 +7,12 @@ export const normalizeColors = (svg: string) => {
   });
 };
 
-export const extractIDs = (svg: string) => {
+export const generateTsType = (svg: string) => {
+  const IDs = extractIDs(svg).map(ID => `  | '${ID}'`);
+  return `export type Icon =\n${IDs.join('\n')};`;
+};
+
+const extractIDs = (svg: string) => {
   const re = /id="\s*([^"]+)\s*"/g;
   const IDs: string[] = [];
 
