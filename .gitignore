@@ -1,8 +1,7 @@
 node_modules
-.output
 dist
 
 # development-only
-sprite.config.json
-icons
-
+*.svg
+*.html
+icon.ts
