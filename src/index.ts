@@ -18,7 +18,10 @@ const main = async () => {
     prettify: true,
     spriteType: 'stack',
     // @ts-ignore
-    spriteConfig: { usageClassName: CLASS_NAME },
+    spriteConfig: {
+      usageClassName: CLASS_NAME,
+      styles: `.${CLASS_NAME}{display:none;}.${CLASS_NAME}:target{display:inline;}`,
+    },
   });
 
   const svg = normalizeColors(sprite.content);
