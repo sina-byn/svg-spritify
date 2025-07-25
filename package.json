@@ -1,6 +1,6 @@
 {
   "name": "svg-spritify",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "bin": {
     "sprite": "dist/index.js"
