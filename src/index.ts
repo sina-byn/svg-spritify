@@ -42,10 +42,10 @@ program.action(async (options: Options) => {
   const svg = normalizeColors(sprite.content);
   const TsType = generateTsType(svg);
 
+  process.chdir(CWD);
+
   fs.writeFileSync(FILE_NAME, svg, 'utf-8');
   fs.writeFileSync(TS_FILE_NAME, TsType, 'utf-8');
-
-  process.chdir(CWD);
 });
 
 program.parse(process.argv);
