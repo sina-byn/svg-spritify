@@ -7,6 +7,15 @@ export const normalizeColors = (svg: string) => {
   });
 };
 
+export const hasMultipleSVGs = (svg: string) => {
+  const re = /<svg[^>]+>/g;
+  let count = 0;
+
+  while (count < 3 && re.exec(svg) !== null) count++;
+
+  return count > 1;
+};
+
 export const generateTsType = (svg: string) => {
   const IDs = extractIDs(svg).map(ID => `  | '${ID}'`);
   return `export type Icon =\n${IDs.join('\n')};`;
