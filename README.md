@@ -1,4 +1,4 @@
-# svg-spritify [![NPM version](https://img.shields.io/npm/v/svg-spritify.svg?style=flat)](https://www.npmjs.com/package/svg-spritify) [![NPM monthly downloads](https://img.shields.io/npm/dm/svg-spritify.svg?style=flat)](https://npmjs.org/package/svg-spritify) [![NPM total downloads](https://img.shields.io/npm/dt/svg-spritify.svg?style=flat)](https://npmjs.org/package/svg-spritify) 
+# svg-spritify [![NPM version](https://img.shields.io/npm/v/svg-spritify.svg?style=flat)](https://www.npmjs.com/package/svg-spritify) [![NPM monthly downloads](https://img.shields.io/npm/dm/svg-spritify.svg?style=flat)](https://npmjs.org/package/svg-spritify) [![NPM total downloads](https://img.shields.io/npm/dt/svg-spritify.svg?style=flat)](https://npmjs.org/package/svg-spritify)
 
 > Creating SVG sprites has never been this easy. Easily generate sprites out of your SVG files.
 
@@ -34,4 +34,22 @@ npx sprite
 <svg width="40" height="40" style="color: blue">
   <use href="/path/to/icons.svg#id" />
 </svg>
+```
+
+## Options
+
+### `--no-recursive`
+
+By default, this package searches for SVG files in all subdirectories. Use the `--no-recursive` option to limit the search to the specified directory only.
+
+```sh
+npx sprite --no-recursive
+```
+
+### `-i, --input <directory>`
+
+Specifies the directory where the SVG files are located. Defaults to `process.cwd()`.
+
+```sh
+npx sprite -i /path/to/svgs
 ```
